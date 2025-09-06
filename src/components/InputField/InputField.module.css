@@ -53,3 +53,11 @@
 .fieldGroup:has(input[type='radio']:checked) {
 	background-color: var(--green-200);
 }
+
+.fieldGroup:has(.error) input {
+	border-color: var(--red);
+}
+
+.error {
+	color: var(--red);
+}
