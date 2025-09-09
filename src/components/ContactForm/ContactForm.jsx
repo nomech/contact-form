@@ -6,6 +6,7 @@ import successIcon from '../../assets/images/icon-success-check.svg';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useEffect } from 'react';
 
 const formSchema = z.object({
 	firstName: z.string().min(1, 'This field is required'),
@@ -32,6 +33,7 @@ const ContactForm = () => {
 	const {
 		register,
 		handleSubmit,
+		reset,
 		formState: { errors, isSubmitSuccessful },
 	} = useForm({
 		resolver: zodResolver(formSchema),
@@ -41,6 +43,12 @@ const ContactForm = () => {
 	const onSubmit = (data) => {
 		console.log(data);
 	};
+
+	useEffect(() => {
+		if (isSubmitSuccessful) {
+			reset();
+		}
+	}, [isSubmitSuccessful, reset]);
 
 	return (
 		<>
@@ -57,14 +65,14 @@ const ContactForm = () => {
 				<fieldset className={styles.fieldset}>
 					<div className={styles.groupedInput}>
 						<InputField
-							label={'First Name'}
+							label={'First Name *'}
 							id={'firstName'}
 							name={'firstName'}
 							register={register}
 							errors={errors}
 						/>
 						<InputField
-							label={'Last Name'}
+							label={'Last Name *'}
 							id={'lastName'}
 							name={'lastName'}
 							register={register}
@@ -73,7 +81,7 @@ const ContactForm = () => {
 					</div>
 					<div className={styles.groupedInput}>
 						<InputField
-							label={'Email Address'}
+							label={'Email Address *'}
 							type="email"
 							id={'email'}
 							name={'email'}
@@ -89,7 +97,7 @@ const ContactForm = () => {
 					aria-invalid={!!errors.query}
 					aria-describedby={errors.query ? 'query-error' : undefined}
 				>
-					<legend>Query type </legend>
+					<legend>Query type *</legend>
 					<div className={styles.groupedInput}>
 						<InputField
 							label={'General Enquiry'}
@@ -118,7 +126,7 @@ const ContactForm = () => {
 				<fieldset className={styles.fieldset}>
 					<div className={styles.groupedInput}>
 						<InputField
-							label={'Message'}
+							label={'Message *'}
 							type={'textarea'}
 							name={'message'}
 							id={'message'}
