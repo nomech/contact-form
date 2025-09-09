@@ -65,14 +65,14 @@ const ContactForm = () => {
 				<fieldset className={styles.fieldset}>
 					<div className={styles.groupedInput}>
 						<InputField
-							label={'First Name *'}
+							label={'First Name'}
 							id={'firstName'}
 							name={'firstName'}
 							register={register}
 							errors={errors}
 						/>
 						<InputField
-							label={'Last Name *'}
+							label={'Last Name'}
 							id={'lastName'}
 							name={'lastName'}
 							register={register}
@@ -81,7 +81,7 @@ const ContactForm = () => {
 					</div>
 					<div className={styles.groupedInput}>
 						<InputField
-							label={'Email Address *'}
+							label={'Email Address'}
 							type="email"
 							id={'email'}
 							name={'email'}
@@ -126,7 +126,7 @@ const ContactForm = () => {
 				<fieldset className={styles.fieldset}>
 					<div className={styles.groupedInput}>
 						<InputField
-							label={'Message *'}
+							label={'Message'}
 							type={'textarea'}
 							name={'message'}
 							id={'message'}
