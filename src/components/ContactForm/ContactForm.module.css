@@ -34,3 +34,10 @@
 	text-align: left;
 	color: var(--red);
 }
+
+
+@media (max-width: 768px) {
+	.groupedInput {
+		flex-direction: column;
+	}
+}

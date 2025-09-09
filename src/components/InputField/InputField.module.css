@@ -22,8 +22,18 @@
 	accent-color: var(--green-600);
 }
 
+.fieldGroup label {
+	text-align: left;
+}
+
+.fieldGroup label::after {
+	content: '*';
+	color: var(--green-600
+	);
+
+}
+
 .fieldGroup textarea {
-	width: 490px;
 	height: 70px;
 	padding: 1rem;
 	resize: none;
