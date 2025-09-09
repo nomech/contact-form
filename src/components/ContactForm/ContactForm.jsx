@@ -1,6 +1,7 @@
 import styles from './ContactForm.module.css';
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
+import Toast from '../Toast/Toast';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -13,14 +14,15 @@ const formSchema = z.object({
 	consent: z.boolean().refine((val) => val === true, {
 		message: 'You must consent to proceed',
 	}),
+	query: z.refine((val) => val === 'general' || val === 'support', {
+		message: 'Please select a query type',
+	}),
 });
 
-const defaultvalue = {
+const defaultValues = {
 	firstName: '',
 	lastName: '',
 	email: '',
-	general: false,
-	support: false,
 	message: '',
 	consent: false,
 };
@@ -32,7 +34,7 @@ const ContactForm = () => {
 		formState: { errors },
 	} = useForm({
 		resolver: zodResolver(formSchema),
-		defaultvalue: defaultvalue,
+		defaultValues: defaultValues,
 	});
 
 	const onSubmit = (data) => {
@@ -40,75 +42,97 @@ const ContactForm = () => {
 	};
 
 	return (
-		<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-			<h2 className={styles.formTitle}>Contact us</h2>
-			<fieldset className={styles.fieldset}>
-				<div className={styles.groupedInput}>
-					<InputField
-						label={'First Name *'}
-						id={'firstName'}
-						register={register}
-						errors={errors}
-					/>
-					<InputField
-						label={'Last Name *'}
-						id={'lastName'}
-						register={register}
-						errors={errors}
-					/>
-				</div>
-				<div className={styles.groupedInput}>
-					<InputField
-						label={'Email Address *'}
-						id={'email'}
-						register={register}
-						errors={errors}
-					/>
-				</div>
-			</fieldset>
-			<fieldset className={styles.fieldset}>
-				<legend>Query type *</legend>
-				<div className={styles.groupedInput}>
-					<InputField
-						label={'General Enquiry'}
-						type={'radio'}
-						name={'query'}
-						id={'general'}
-						register={register}
-						errors={errors}
-					/>
-					<InputField
-						label={'Support Request'}
-						type={'radio'}
-						name={'query'}
-						id={'support'}
-						register={register}
-						errors={errors}
-					/>
-				</div>
-			</fieldset>
-			<fieldset className={styles.fieldset}>
-				<div className={styles.groupedInput}>
-					<InputField
-						label={'Message *'}
-						type={'textarea'}
-						name={'message'}
-						id={'message'}
-						register={register}
-						errors={errors}
-					/>
-				</div>
+		<>
+			<Toast />
+			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+				<h2 className={styles.formTitle}>Contact us</h2>
 
-				<InputField
-					label={'I consent to being contacted by the team'}
-					type={'checkbox'}
-					id={'consent'}
-					register={register}
-					errors={errors}
-				/>
-			</fieldset>
-			<Button type={'submit'}> Submit </Button>
-		</form>
+				<fieldset className={styles.fieldset}>
+					<div className={styles.groupedInput}>
+						<InputField
+							label={'First Name *'}
+							id={'firstName'}
+							name={'firstName'}
+							register={register}
+							errors={errors}
+						/>
+						<InputField
+							label={'Last Name *'}
+							id={'lastName'}
+							name={'lastName'}
+							register={register}
+							errors={errors}
+						/>
+					</div>
+					<div className={styles.groupedInput}>
+						<InputField
+							label={'Email Address *'}
+							type="email"
+							id={'email'}
+							name={'email'}
+							register={register}
+							errors={errors}
+						/>
+					</div>
+				</fieldset>
+
+				<fieldset
+					className={styles.fieldset}
+					role="radiogroup"
+					aria-invalid={!!errors.query}
+					aria-describedby={errors.query ? 'query-error' : undefined}
+				>
+					<legend>Query type *</legend>
+					<div className={styles.groupedInput}>
+						<InputField
+							label={'General Enquiry'}
+							type={'radio'}
+							name={'query'}
+							id={'general'}
+							value={'general'}
+							register={register}
+							errors={errors}
+							showError={false}
+						/>
+						<InputField
+							label={'Support Request'}
+							type={'radio'}
+							name={'query'}
+							id={'support'}
+							value={'support'}
+							register={register}
+							errors={errors}
+							showError={false}
+						/>
+					</div>
+					{errors.query && <p className={styles.error}>{errors.query.message}</p>}
+				</fieldset>
+
+				<fieldset className={styles.fieldset}>
+					<div className={styles.groupedInput}>
+						<InputField
+							label={'Message *'}
+							type={'textarea'}
+							name={'message'}
+							id={'message'}
+							register={register}
+							errors={errors}
+						/>
+					</div>
+
+					<InputField
+						label={'I consent to being contacted by the team'}
+						type={'checkbox'}
+						id={'consent'}
+						name={'consent'}
+						register={register}
+						errors={errors}
+					/>
+				</fieldset>
+
+				<Button type={'submit'}> Submit </Button>
+			</form>
+		</>
 	);
 };
 
