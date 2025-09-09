@@ -1,12 +1,60 @@
-# React + Vite
+# Contact Form (Frontend Mentor Challenge)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, accessible contact form built with React and Vite, styled with custom CSS modules. This project is a solution to a [Frontend Mentor](https://www.frontendmentor.io/) challenge.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+-   Responsive and accessible contact form
+-   Custom input components
+-   Toast notifications for feedback
+-   Modern design with custom fonts and icons
 
-## Expanding the ESLint configuration
+## Project Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```
+src/
+  App.jsx           # Main app component
+  App.css           # Global styles
+  main.jsx          # Entry point
+  assets/           # Fonts and images
+  components/
+	 Button/         # Reusable button component
+	 ContactForm/    # Main contact form logic and UI
+	 InputField/     # Custom input field component
+	 Toast/          # Toast notification component
+public/
+  assets/           # Static fonts and images
+index.html          # App entry HTML
+vite.config.js      # Vite configuration
+eslint.config.js    # ESLint configuration
+```
+
+## Getting Started
+
+1. **Install dependencies**
+
+    ```bash
+    npm install
+    ```
+
+2. **Run the development server**
+
+    ```bash
+    npm run dev
+    ```
+
+## Customization
+
+-   Update form fields and validation in `src/components/ContactForm/ContactForm.jsx`.
+-   Change styles in the respective `.module.css` files.
+-   Replace fonts or images in `public/assets/` or `src/assets/` as needed.
+
+## Credits
+
+-   [Frontend Mentor](https://www.frontendmentor.io/) for the challenge
+-   [Vite](https://vitejs.dev/) for the build tool
+-   [React](https://react.dev/) for the UI library
+
+---
+
+**Feel free to use, modify, and share!**
