@@ -2,6 +2,7 @@ import styles from './ContactForm.module.css';
 import Button from '../Button/Button';
 import InputField from '../InputField/InputField';
 import Toast from '../Toast/Toast';
+import successIcon from '../../assets/images/icon-success-check.svg';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -31,7 +32,7 @@ const ContactForm = () => {
 	const {
 		register,
 		handleSubmit,
-		formState: { errors },
+		formState: { errors, isSubmitSuccessful },
 	} = useForm({
 		resolver: zodResolver(formSchema),
 		defaultValues: defaultValues,
@@ -43,7 +44,13 @@ const ContactForm = () => {
 
 	return (
 		<>
-			<Toast />
+			<Toast
+				title={'Message Sent!!'}
+				message={"Thanks for completing the form. We'll be in touch soon!"}
+				icon={successIcon}
+				isVisible={isSubmitSuccessful}
+			/>
+
 			<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
 				<h2 className={styles.formTitle}>Contact us</h2>
 
